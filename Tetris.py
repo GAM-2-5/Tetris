@@ -4,6 +4,7 @@ import random
 import time
 pygame.init()
 dis = pygame.display.set_mode((640, 480))
+pygame.mixer.init()
 pygame.display.set_caption('Tetris') 
 kraj = False
 begtime=time.time()
@@ -70,9 +71,11 @@ while start:
             if event.key==pygame.K_w:
                 start=False
                 if cher:
+                    music="Chernobil_theme.mp3"
                     pygame.mixer.music.load("Chernobil_theme.mp3")
                     pygame.mixer.music.play(-1)
                 else:
+                    music="Tetris_theme.mp3"
                     pygame.mixer.music.load("Tetris_theme.mp3")
                     pygame.mixer.music.play(-1)
             if event.key==pygame.K_c:
@@ -83,6 +86,7 @@ while start:
                 else:
                     jumptimejump=0.01
 
+        
 def gameover():
     global kraj
     for i in setblock:

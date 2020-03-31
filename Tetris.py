@@ -63,11 +63,18 @@ while start:
     pygame.display.update()
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
+            pygame.mixer.music.stop()
             pygame.display.quit()
             sys.exit()
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_w:
                 start=False
+                if cher:
+                    pygame.mixer.music.load("")
+                    pygame.mixer.music.play(-1)
+                else:
+                    pygame.mixer.music.load("Tetris_theme.mp3")
+                    pygame.mixer.music.play(-1)
             if event.key==pygame.K_c:
                 cher=not cher
             if event.key==pygame.K_f:
@@ -86,6 +93,7 @@ def gameover():
             sys.exit()
         
 def clear():
+    global cool
     global rjumptime
     global jumptime
     global score
@@ -223,6 +231,7 @@ while not kraj:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             kraj=True
+            pygame.mixer.music.stop()
             pygame.display.quit()
             sys.exit()
         if event.type==pygame.KEYUP:

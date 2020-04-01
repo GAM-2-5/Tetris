@@ -31,9 +31,9 @@ while start:
     text = font.render("TETRIS", True, (100,100,200))
     text1= font1.render("Controls:", True, (200,200,200))
     text2= font1.render("A and D for moving right and left, Q and E for rotating, S for fast fall.", True, (200,200,200))
-    text3= font1.render("Press C to toggle Chernobil mode, press F to toggle Fast mode.", True, (200,200,200))
+    text3= font1.render("Press C to toggle Chernobyl mode, press F to toggle Fast mode.", True, (200,200,200))
     text4= font1.render("Press W to start.",True, (200,200,200))
-    text5= font1.render("Chernobil mode enabled.",True, (200,100,100))
+    text5= font1.render("Chernobyl mode enabled.",True, (200,100,100))
     text6= font1.render("Fast mode enabled.",True,(200,100,100))
 
     textRect = text.get_rect()

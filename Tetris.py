@@ -70,6 +70,9 @@ while start:
         if event.type==pygame.KEYDOWN:
             if event.key==pygame.K_w:
                 start=False
+                if jumptimejump==0.1:
+                    pygame.mixer.quit()
+                    pygame.mixer.init(55000)
                 if cher:
                     music="Chernobil_theme.mp3"
                     pygame.mixer.music.load("Chernobil_theme.mp3")

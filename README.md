@@ -1,2 +1,2 @@
 # Tetris
-Chernobil mode under construction
+Praktički gotovo, ali se trudim dodavat nove stvari.

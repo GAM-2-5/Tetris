@@ -74,12 +74,12 @@ while start:
                     pygame.mixer.quit()
                     pygame.mixer.init(55000)
                 if cher:
-                    music="Chernobil_theme.mp3"
-                    pygame.mixer.music.load("Chernobil_theme.mp3")
+                    music="sounds\Chernobil_theme.mp3"
+                    pygame.mixer.music.load("sounds\Chernobil_theme.mp3")
                     pygame.mixer.music.play(-1)
                 else:
-                    music="Tetris_theme.mp3"
-                    pygame.mixer.music.load("Tetris_theme.mp3")
+                    music="sounds\Tetris_theme.mp3"
+                    pygame.mixer.music.load("sounds\Tetris_theme.mp3")
                     pygame.mixer.music.play(-1)
             if event.key==pygame.K_c:
                 cher=not cher
@@ -96,10 +96,10 @@ def gameover():
         if i[0]==300 and i[1]==80:
             kraj=True
             if cher:
-                pygame.mixer.music.load("Chernobil_death.mp3")
+                pygame.mixer.music.load("sounds\Chernobil_death.mp3")
                 pygame.mixer.music.play()
             else:
-                pygame.mixer.music.load("Tetris_death.wav")
+                pygame.mixer.music.load("sounds\Tetris_death.wav")
                 pygame.mixer.music.play()
             time.sleep(2.7)
             pygame.display.quit()

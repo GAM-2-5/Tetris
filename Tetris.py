@@ -44,6 +44,7 @@ while start:
     text5Rect= text5.get_rect()
     text6Rect= text6.get_rect()
     
+    
     textRect.center = (300, 100)
     text1Rect.center = (300, 150)
     text2Rect.center = (300, 180)

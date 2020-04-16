@@ -1,16 +1,16 @@
 import pygame
 import sys
-import random
+import random #postavljanje stvari
 import time
 pygame.init()
-dis = pygame.display.set_mode((640, 480))
-pygame.mixer.init()
-pygame.display.set_caption('Tetris') 
+dis = pygame.display.set_mode((640, 480)) #priprema ekrana
+pygame.mixer.init() #priprema zvuka
+pygame.display.set_caption('Tetris') #priprema ekrana
 kraj = False
-begtime=time.time()
+begtime=time.time() #timeri
 oldtime=0
-setblock=[]
-for i in range(12):
+setblock=[]  #blokovi koji su se "set"ali
+for i in range(12):  #postavljanje granica
     setblock.append([200+20*i,420,[50,50,50]])
 for i in range(21):
     setblock.append([200,420-20*i,[50,50,50]])
@@ -26,9 +26,9 @@ jumptime=1.00
 start=True
 cher=0
 jumptimejump=0.01
-while start:
-    dis.fill((0,0,0))
-    text = font.render("TETRIS", True, (100,100,200))
+while start: #start menu
+    dis.fill((0,0,0)) 
+    text = font.render("TETRIS", True, (100,100,200))  #pisanje
     text1= font1.render("Controls:", True, (200,200,200))
     text2= font1.render("A and D for moving right and left, Q and E for rotating, S for fast fall.", True, (200,200,200))
     text3= font1.render("Press C to toggle Chernobyl mode, press F to toggle Fast mode.", True, (200,200,200))
@@ -44,8 +44,7 @@ while start:
     text5Rect= text5.get_rect()
     text6Rect= text6.get_rect()
     
-    
-    textRect.center = (300, 100)
+    textRect.center = (300, 100) #određivanje koordianta teksta
     text1Rect.center = (300, 150)
     text2Rect.center = (300, 180)
     text3Rect.center = (300, 210)
@@ -53,7 +52,7 @@ while start:
     text5Rect.center = (300, 280)
     text6Rect.center = (300, 300)
 
-    dis.blit(text, textRect)
+    dis.blit(text, textRect)  #crtanje teksta
     dis.blit(text1, text1Rect)
     dis.blit(text2, text2Rect)
     dis.blit(text3, text3Rect)
@@ -63,18 +62,18 @@ while start:
         dis.blit(text6, text6Rect)
     
     pygame.display.update()
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
+    for event in pygame.event.get(): #u slucaju pritiskanja necega
+        if event.type==pygame.QUIT: #X za zatvaranje
             pygame.mixer.music.stop()
             pygame.display.quit()
             sys.exit()
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_w:
+        if event.type==pygame.KEYDOWN: #tipkovnica
+            if event.key==pygame.K_w: #startanje igre
                 start=False
-                if jumptimejump==0.1:
+                if jumptimejump==0.1: #postavljanje brzine pjesme
                     pygame.mixer.quit()
                     pygame.mixer.init(55000)
-                if cher:
+                if cher: #postavljanje pjesme
                     music="sounds\Chernobil_theme.mp3"
                     pygame.mixer.music.load("sounds\Chernobil_theme.mp3")
                     pygame.mixer.music.play(-1)
@@ -82,7 +81,7 @@ while start:
                     music="sounds\Tetris_theme.mp3"
                     pygame.mixer.music.load("sounds\Tetris_theme.mp3")
                     pygame.mixer.music.play(-1)
-            if event.key==pygame.K_c:
+            if event.key==pygame.K_c: #mijenjanje mode-ova
                 cher=not cher
             if event.key==pygame.K_f:
                 if jumptimejump==0.01:
@@ -91,12 +90,12 @@ while start:
                     jumptimejump=0.01
 
         
-def gameover():
+def gameover(): #provjera za kraj igre
     global kraj
     for i in setblock:
         if i[0]==300 and i[1]==80:
             kraj=True
-            if cher:
+            if cher: #sviranje death-soundova
                 pygame.mixer.music.load("sounds\Chernobil_death.mp3")
                 pygame.mixer.music.play()
             else:
@@ -106,13 +105,13 @@ def gameover():
             pygame.display.quit()
             sys.exit()
         
-def clear():
+def clear(): #provjera za clear-anje lineova
     global cool
     global rjumptime
     global jumptime
     global score
     cleared=[]
-    for i in range(20):
+    for i in range(20): #provejra ima li punih redova
         b=0
         for t in setblock:
             if t[1]==400-20*(19-i):
@@ -120,7 +119,7 @@ def clear():
         if b==12:
             cleared.append(400-20*(19-i))
 
-    if len(cleared)==4:
+    if len(cleared)==4: #dodavanje bodova
         if cool:
             score+=1200
         else:
@@ -129,7 +128,7 @@ def clear():
     else:
         cool=False
         score+=len(cleared)*100
-    for i in cleared:
+    for i in cleared: #povecanje brzine i brisanje clear-anih blokova
         rjumptime-=rjumptime*jumptimejump
         jumptime=rjumptime
         c=[]
@@ -141,7 +140,7 @@ def clear():
         for n in range(len(setblock)):
             if setblock[n][1]<i and setblock[n][0]!=200 and setblock[n][0]!=420:
                 setblock[n][1]+=20
-def checkrot(side):
+def checkrot(side): #provjera ako je prostor slobodan za rotiranje
     global coords
     global setblocks
     global rot
@@ -174,7 +173,7 @@ def checkrot(side):
                 yes=False
     
 
-def check():
+def check(): #provjera ako je nesto ispod bloka prije micanja, ako je onda se aktivni blok set-a
     global new
     global setblock
     global coords
@@ -196,7 +195,7 @@ def check():
                 break
         if new:
             break
-def move(gej, gae):
+def move(gej, gae): #rotiranje i micanje dolje
     global coords
     global color
     coords=[coords[0],coords[1]]
@@ -221,9 +220,9 @@ def move(gej, gae):
     if shape==7:#T
         color=[100,10,100]
         coords.extend([coords[0]+20*rot[0]-20*rot[2],coords[1]-20*rot[1]+20*rot[3],coords[0]-20*rot[1]+20*rot[3],coords[1]+20*rot[0]-20*rot[2],coords[0]-20*rot[0]+20*rot[2],coords[1]+20*rot[1]-20*rot[3]])
-while not kraj:
+while not kraj: #glavni loop
     
-    if new:
+    if new: #za kada nastane novi blok, kada se stari set-a
         gameover()
         clear()
         global coords
@@ -235,15 +234,15 @@ while not kraj:
         move(coords, rot)
         new=False
 
-    if time.time()-begtime>oldtime+jumptime:
+    if time.time()-begtime>oldtime+jumptime: #provjera ako je vrijeme za micanje dolje
         check()
         coords[1]+=20
         oldtime=time.time()-begtime
         move(coords, rot)
         
             
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
+    for event in pygame.event.get(): #provjera za event-ove
+        if event.type==pygame.QUIT: #pritisak na X za zatvaranje prozora
             kraj=True
             pygame.mixer.music.stop()
             pygame.display.quit()
@@ -253,12 +252,12 @@ while not kraj:
                 jumptime=rjumptime
             if event.key==pygame.K_s:
                 jumptime=rjumptime
-        if event.type==pygame.KEYDOWN:
-            if event.key==pygame.K_p:
+        if event.type==pygame.KEYDOWN: #pritisak na tipke
+            if event.key==pygame.K_p: #ovo je developer stvar i nije ukljucena, zaustavljanje pada
                 jumptime=1000000
-            if event.key==pygame.K_s:
+            if event.key==pygame.K_s: #ubrazni pad
                 jumptime=0.1
-            if event.key==pygame.K_q:
+            if event.key==pygame.K_q: #rotacija lijevo
                 yes=True
                 crot=list(rot)
                 for i in range(len(crot)):
@@ -274,7 +273,7 @@ while not kraj:
                             rot[i-1]=1
                             break
                     move(coords, rot)
-            if event.key==pygame.K_e:
+            if event.key==pygame.K_e: #rotacija desno
                 yes=True
                 crot=list(rot)
                 for i in range(len(crot)):
@@ -298,7 +297,7 @@ while not kraj:
                                 rot[i+1]=1
                             break
                     move(coords, rot)
-            if event.key==pygame.K_a:
+            if event.key==pygame.K_a: #kretanje lijevo
                 yes=True
                 for t in setblock:
                     for i in range(4):
@@ -307,7 +306,7 @@ while not kraj:
                 if yes:
                     coords[0]-=20
                     move(coords, rot)
-            if event.key==pygame.K_d:
+            if event.key==pygame.K_d: #kretanje desno
                 yes=True
                 for t in setblock:
                     for i in range(4):
@@ -316,16 +315,16 @@ while not kraj:
                 if yes:
                     coords[0]+=20
                     move(coords, rot)
-    dis.fill((0,0,0))
+    dis.fill((0,0,0)) #crtanje po ekranu
 
-    for t in setblock:
+    for t in setblock: #blokovi koji su setani
             pygame.draw.rect(dis, t[2],[t[0],t[1],20,20])
-    text = font.render(str(score), True, (200,200,200))
+    text = font.render(str(score), True, (200,200,200)) #tekst s rezultatom
     textRect = text.get_rect()
     textRect.center = (100, 200)
     dis.blit(text, textRect)
     
-    pygame.draw.rect(dis, color,[coords[0],coords[1],20,20], cher*50)
+    pygame.draw.rect(dis, color,[coords[0],coords[1],20,20], cher*50) #4 aktivna bloka
     pygame.draw.rect(dis, color,[coords[2],coords[3],20,20], cher*50)
     pygame.draw.rect(dis, color,[coords[4],coords[5],20,20], cher*50)
     pygame.draw.rect(dis, color,[coords[6],coords[7],20,20], cher*50)

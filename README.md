@@ -12,3 +12,5 @@ Kopirajte path tog foldera.
 2. Instalacija pygame-a
 Ako ste već imali pip upišite "pip install pygame" i pričekajte dok ne kaze da instalacija nije gotova.
 Ako ste trebali pratiti sve korake pod 1. onda zalijepite path koji ste kopirali i iza njega napisite "\pip.exe install pygame"
+
+Chernobil mode - aktivni blok je mutirao! teško je vidjeti gdje se točno nalazi i kako je okrenut.
